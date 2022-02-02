@@ -1,3 +1,5 @@
-No back-end fornecido abaixo, todo o processo de cadastro já está implementado, porém o login ainda não retorna nenhum token pro front-end, impossibilitando o envio de requests para rotas privadas.
+O seu sonho de criança era ser um arquiteto, planejar, desenhar plantas e acompanhar a construção de casas. Porém, quando você cresceu e viu como realmente um arquiteto trabalho, perdeu o brilho da coisa.
 
-Implemente o fluxo de login para que um token seja cadastrado ao fazer retornado e, em seguida, implemente a rota `/meus-dados` como descrito no código.
+Agora que você é dev, decidiu dar uma segunda chance para esse sonho, só que dessa vez arquitetando servidores back-end.
+
+Separe a logica de respostas contida no arquivo `src/app.js` em dois arquivos, `src/controllers/authController.js` contendo as respostas das rotas `/sign-up` e `/sign-in` e `src/controllers/userController.js` contendo as respostas de todos os metodos da rota `/users`
