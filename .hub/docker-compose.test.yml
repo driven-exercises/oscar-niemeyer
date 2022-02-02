@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: ./.hub/Dockerfile
+    volumes:
+      - ..:/usr/src/app
+      - ../node_modules:/usr/src/app/node_modules/
+      - /usr/src/app/tests
+    command: npm run test
+    networks:
+      - hub-network
+    depends_on:
+      - mongo
+  mongo:
+    build:
+      context: ../
+      dockerfile: ./.hub/mongo.dockerfile
+    networks:
+      - hub-network
+    container_name: mongo_db
+
+networks:
+  hub-network:
+    driver: bridge
