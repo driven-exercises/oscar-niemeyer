@@ -1,18 +1,16 @@
 import express from 'express';
-import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
-import bcrypt from 'bcrypt';
-import { v4 as uuid } from 'uuid';
-dotenv.config();
-
-const mongoClient = new MongoClient(process.env.MONGO_URI);
-let db;
-mongoClient.connect(() => {
-  db = mongoClient.db("oscar-niemeyer");
-});
+import { MongoClient } from 'mongodb';
+import { signin, signup } from './controllers/authController.js';
+import { deleteUser, getUser, putUser } from './controllers/userController.js';
 
 const app = express();
 app.use(express.json());
+dotenv.config();
+
+const mongoClient = new MongoClient(process.env.MONGO_URI);
+await mongoClient.connect();
+const db = mongoClient.db("oscar-niemeyer");
 
 app.post("/sign-up", async (req, res) => {
   const user = req.body;
@@ -82,11 +80,7 @@ app.put("/user", async (req, res) => {
     return res.sendStatus(401);
   }
 
-  await db.collection('users').updateOne({
-    _id: session.userId
-  }, {
-    $set: newUser
-  });
+  await db.collection('users').updateOne({_id: session.userId}, {$set: newUser});
 
   res.sendStatus(200);
 });
